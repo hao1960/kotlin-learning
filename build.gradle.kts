@@ -15,8 +15,11 @@ kotlin {
     jvmToolchain(17)
 }
 
-// 用法：gradle run -Pday=02
+// 用法：
+//   gradle run -Pday=05
+//   gradle run -Pday=05 -Pmain=Day05PracticeKt
 val day = (findProperty("day") as String?) ?: "02"
+val mainName = (findProperty("main") as String?) ?: "Day${day}Kt"
 
 sourceSets {
     main {
@@ -27,5 +30,5 @@ sourceSets {
 }
 
 application {
-    mainClass.set("Day${day}Kt")
+    mainClass.set(mainName)
 }

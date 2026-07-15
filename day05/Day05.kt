@@ -37,6 +37,7 @@ suspend fun fetchSongName(id: Int): String {
 //       }
 //   }
 
+
 // ---------- 3. async：需要结果时用，await 取值 ----------
 // TODO 2: 用 async 同时启动两个 fetchSongName(1) 和 fetchSongName(2)
 // 分别 await 后打印两个名字
@@ -69,6 +70,19 @@ fun main() = runBlocking {
     // TODO 1: launch
     // TODO 2: async
     // TODO 3: Flow collect
+    launch{
+        val song = fetchSong(1)
+        println("launch 拿到：$song")
+    }
 
+    val a=async{fetchSongName(1)}
+    val b=async{fetchSongName(2)}
+    println(a.await())
+    println(b.await())
+
+    songIdFlow().collect{id->
+        val name=fetchSongName(id)
+        println(name)
+    }
     println("=== Day5 结束 ===")
 }
